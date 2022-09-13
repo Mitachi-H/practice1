@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todoアプリ</title>
+    <style>
+        .completed>span{
+            text-decoration: line-through;
+            background-color: gray;
+        }
+        #todo-list{
+            list-style: none;
+        }
+        .red{
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div id="todo-container">
+        <input type = "text" name="" id="create-input">
+        <button id="create-btn">追加</button>
+        <ul id="todo-list">
+        </ul>
+    </div>
+    <template id="todo-item-tmpl">
+        <li id="todo-item">
+            <span class="todo-title"></span>
+            <input type="button" class="delete-btn" value="削除">
+            <input type="button" class="complete-btn" value="完了">
+        </li>
+    </template>
+    <script>
+        const input = document.querySelector("#create-input")
+        const create = document.querySelector("#create-btn")
+        const ul = document.querySelector("#todo-list")
+        const li = document.querySelector("#todo-item-tmpl").content.firstElementChild
+        window.addEventListener("click",event=>{
+            const target = event.target
+            if(target.id=="create-btn"){
+                const clone = li.cloneNode(true)
+                clone.firstElementChild.textContent=input.value
+                ul.append(clone)
+            }else if(target.classList[0]=="delete-btn"){
+                target.parentElement.remove()
+            }else if(target.classList[0]=="complete-btn"){
+                target.parentElement.classList.add("completed")
+            }
+        })
+
+        
+    </script>
+</body>
+</html>
